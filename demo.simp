@@ -1,0 +1,127 @@
+# ── demo.simp ── showcase of the simp language ──
+
+# --- Variables and basic expressions ---
+set $name = "simp"
+set $version = 1
+print("Welcome to $name v$version")
+
+# --- Arithmetic ---
+set $a = 10
+set $b = 3
+set $sum = add($a, $b)
+set $prod = mul($a, $b)
+print("10 + 3 = $sum")
+print("10 * 3 = $prod")
+
+# --- String operations ---
+set $greeting = "hello world"
+set $up = upper($greeting)
+set $len = length($greeting)
+print("upper: $up")
+print("length: $len")
+
+# --- Conditionals ---
+if gt($a, $b)
+  print("10 is greater than 3")
+end
+
+if eq($name, "simp")
+  print("language confirmed")
+else
+  print("unknown language")
+end
+
+# --- Regex ---
+set $filename = "file_handler.txt"
+if matchrx($filename, #"^file")
+  print("$filename starts with 'file'")
+end
+
+set @parts = extract($filename, #"^(.+)\.(\w+)$")
+set $stem = get(@parts, 0)
+set $ext = get(@parts, 1)
+print("stem: $stem")
+print("ext: $ext")
+
+# --- Arrays ---
+set @colors = ["red", "green", "blue"]
+push(@colors, "yellow")
+set $clist = join(", ", @colors)
+set $ccount = len(@colors)
+print("colors: $clist")
+print("count: $ccount")
+
+# --- foreach ---
+print("-- each color --")
+foreach $c @colors
+  print("  $c")
+end
+
+# --- User-defined sub ---
+sub greet($who)
+  print("Hello, $who!")
+end
+
+greet("world")
+greet("simp user")
+
+# --- sub with logic ---
+sub classify($n)
+  if gt($n, 100)
+    print("$n is big")
+  else
+    if gt($n, 10)
+      print("$n is medium")
+    else
+      print("$n is small")
+    end
+  end
+end
+
+classify(5)
+classify(42)
+classify(999)
+
+# --- Dictionaries ---
+set %cfg = {host: "localhost", port: "8080"}
+dict-set(%cfg, "debug", "true")
+set $host = dict-get(%cfg, "host")
+set $port = dict-get(%cfg, "port")
+print("host: $host")
+print("port: $port")
+
+if dict-has(%cfg, "debug")
+  print("debug mode is on")
+end
+
+set @keys = dict-keys(%cfg)
+print("-- config --")
+foreach $k @keys
+  set $v = dict-get(%cfg, $k)
+  print("  $k = $v")
+end
+
+dict-del(%cfg, "debug")
+set $hasdebug = dict-has(%cfg, "debug")
+print("still has debug? $hasdebug")
+
+# --- Split and join ---
+set $csv = "one,two,three,four"
+set @words = split(",", $csv)
+set $joined = join(" | ", @words)
+print("split: $joined")
+
+# --- alias ---
+alias yell = upper
+print(yell("this is loud"))
+
+# --- Shell ---
+set $date = sh("date +%Y-%m-%d")
+print("today: $date")
+
+# --- File I/O ---
+write-file("simp was here", "/tmp/simp-demo.txt")
+set $content = read-file("/tmp/simp-demo.txt")
+print("read back: $content")
+
+print("-- demo complete --")

@@ -1,0 +1,3 @@
+(executable
+ (name simp)
+ (libraries str pcre unix))

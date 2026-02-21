@@ -1,0 +1,55 @@
+{
+   "args" : {
+      "calls" : 3000,
+      "depth" : 200,
+      "iters" : 2,
+      "warmup" : 1
+   },
+   "cases" : {
+      "module_qualified" : {
+         "baseline" : {
+            "avg_s" : 0.201885938644409,
+            "name" : "local-sub-calls",
+            "ops_s" : 14859.8759286749
+         },
+         "ops" : 3000,
+         "with_feature" : {
+            "avg_s" : 0.225026488304138,
+            "name" : "module/sub-calls",
+            "ops_s" : 13331.7638408208
+         }
+      },
+      "recursion" : {
+         "baseline" : {
+            "avg_s" : 0.0202805995941162,
+            "name" : "rec-baseline(loop)",
+            "ops_s" : 9861.64137168922
+         },
+         "ops" : 200,
+         "with_feature" : {
+            "avg_s" : 0.0330899953842163,
+            "name" : "recursion(calls)",
+            "ops_s" : 6044.12293437184
+         }
+      },
+      "strict_globals" : {
+         "baseline" : {
+            "avg_s" : 0.0974044799804688,
+            "name" : "globals(no-strict)",
+            "ops_s" : 30799.4047152816
+         },
+         "ops" : 3000,
+         "with_feature" : {
+            "avg_s" : 0.100240111351013,
+            "name" : "globals(strict)",
+            "ops_s" : 29928.139140776
+         }
+      }
+   },
+   "ratios" : {
+      "module_over_local" : 1.11462189895497,
+      "recursion_over_loop" : 1.63160833734996,
+      "strict_over_nonstrict" : 1.02911191940158
+   },
+   "timestamp_utc" : "2026-02-21T09:16:41Z"
+}
